@@ -27,12 +27,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="k_nearest_neighbor.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="k_nearest_neighbor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cs231n/classifiers/k_nearest_neighbor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="13" />
+            <state relative-caret-position="432">
+              <caret line="175" column="37" lean-forward="true" selection-start-line="175" selection-start-column="37" selection-end-line="175" selection-end-column="37" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="linear_svm.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cs231n/classifiers/linear_svm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="792">
+              <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="linear_classifier.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cs231n/classifiers/linear_classifier.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="656">
+              <caret line="130" column="13" lean-forward="false" selection-start-line="130" selection-start-column="6" selection-end-line="130" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="softmax.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cs231n/classifiers/softmax.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="620">
+              <caret line="91" column="13" lean-forward="true" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -43,6 +79,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/cs231n/classifiers/k_nearest_neighbor.py" />
+        <option value="$PROJECT_DIR$/cs231n/classifiers/linear_svm.py" />
+        <option value="$PROJECT_DIR$/cs231n/classifiers/linear_classifier.py" />
+        <option value="$PROJECT_DIR$/cs231n/classifiers/softmax.py" />
       </list>
     </option>
   </component>
@@ -134,7 +173,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1922" height="1054" extended-state="7" />
+    <frame x="-1" y="0" width="1922" height="1054" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -176,9 +215,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cs231n/classifiers/k_nearest_neighbor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="13" />
+        <state relative-caret-position="432">
+          <caret line="175" column="37" lean-forward="true" selection-start-line="175" selection-start-column="37" selection-end-line="175" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cs231n/classifiers/linear_svm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cs231n/classifiers/softmax.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="91" column="13" lean-forward="true" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cs231n/classifiers/linear_classifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="656">
+          <caret line="130" column="13" lean-forward="false" selection-start-line="130" selection-start-column="6" selection-end-line="130" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -29,6 +29,28 @@ def softmax_loss_naive(W, X, y, reg):
   # here, it is easy to run into numeric instability. Don't forget the        #
   # regularization!                                                           #
   #############################################################################
+  nums = X.shape[0]
+  num_class = W.shape[1]
+  for i in xrange(nums):
+    cur_sample = X[i]
+    score_class = []
+    for j in xrange(num_class):
+      score_class.append(np.sum(cur_sample*W[:,j]))
+    score_class = np.array(score_class)
+    max_score = np.max(score_class)
+    score_shifted = score_class - max_score
+    score_exp = np.exp(score_shifted)
+    score_norm = score_exp/np.sum(score_exp)
+    loss -= np.log(score_norm[y[i]])
+    for j in xrange(num_class):
+      if j!=y[i]:
+        dW[:,j] += score_norm[j]*cur_sample
+      else:
+        dW[:,y[i]] += (score_norm[y[i]]-1)*cur_sample
+  loss /= nums
+  loss += 0.5*reg*np.sum(W*W)
+  dW /= nums
+  dW += reg*W
   pass
   #############################################################################
   #                          END OF YOUR CODE                                 #
@@ -46,13 +68,28 @@ def softmax_loss_vectorized(W, X, y, reg):
   # Initialize the loss and gradient to zero.
   loss = 0.0
   dW = np.zeros_like(W)
-
+  nums = X.shape[0]
+  num_class = W.shape[1]
   #############################################################################
   # TODO: Compute the softmax loss and its gradient using no explicit loops.  #
   # Store the loss in loss and the gradient in dW. If you are not careful     #
   # here, it is easy to run into numeric instability. Don't forget the        #
   # regularization!                                                           #
   #############################################################################
+  scores = X.dot(W)
+  max_score = np.max(scores,axis=1).reshape(-1,1)
+  score_shifted = scores - max_score
+  score_exp = np.exp(score_shifted)
+  score_exp_sum = np.sum(score_exp,axis=1).reshape(-1,1)
+  score_norm = score_exp/score_exp_sum
+  score_class = score_norm[range(nums),y]
+  loss = -np.sum(np.log(score_class))
+  loss /= nums
+  loss += reg*0.5*np.sum(W*W)
+  score_norm[range(nums),y] = score_class-1
+  dW = X.T.dot(score_norm)
+  dW /= nums
+  dW += reg*W
   pass
   #############################################################################
   #                          END OF YOUR CODE                                 #
