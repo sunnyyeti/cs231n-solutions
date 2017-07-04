@@ -45,6 +45,10 @@ class TwoLayerNet(object):
     # weights and biases using the keys 'W1' and 'b1' and second layer weights #
     # and biases using the keys 'W2' and 'b2'.                                 #
     ############################################################################
+    self.params['W1'] = np.random.normal(0,weight_scale,(input_dim,hidden_dim))
+    self.params['b1'] = np.zeros(hidden_dim)
+    self.params['W2'] = np.random.normal(0,weight_scale,(hidden_dim,num_classes))
+    self.params['b2'] = np.zeros(num_classes)
     pass
     ############################################################################
     #                             END OF YOUR CODE                             #
@@ -75,6 +79,10 @@ class TwoLayerNet(object):
     # TODO: Implement the forward pass for the two-layer net, computing the    #
     # class scores for X and storing them in the scores variable.              #
     ############################################################################
+    h1_out,h1_cache = affine_forward(X,self.params['W1'],self.params['b1'])
+    relu1_out, relu1_cache = relu_forward(h1_out)
+    h2_out,h2_cache = affine_forward(relu1_out,self.params['W2'],self.params['b2'])
+    scores = h2_out
     pass
     ############################################################################
     #                             END OF YOUR CODE                             #
@@ -95,6 +103,15 @@ class TwoLayerNet(object):
     # automated tests, make sure that your L2 regularization includes a factor #
     # of 0.5 to simplify the expression for the gradient.                      #
     ############################################################################
+    loss, dscore = softmax_loss(scores,y)
+    loss += (np.sum(self.params['W1']**2)+ np.sum(self.params['W2']**2))*0.5*self.reg
+    drelu1_out,dw2,db2 = affine_backward(dscore,h2_cache)
+    dh1_out = relu_backward(drelu1_out,relu1_cache)
+    dX,dw1,db1 = affine_backward(dh1_out,h1_cache)
+    grads['W1'] = dw1+self.params['W1']*self.reg
+    grads['b1'] = db1
+    grads['W2'] = dw2+self.params['W2']*self.reg
+    grads['b2'] = db2
     pass
     ############################################################################
     #                             END OF YOUR CODE                             #
@@ -161,6 +178,13 @@ class FullyConnectedNet(object):
     # beta2, etc. Scale parameters should be initialized to one and shift      #
     # parameters should be initialized to zero.                                #
     ############################################################################
+    tmp_layer_numbers = [input_dim] + hidden_dims + [num_classes]
+    for i in xrange(1,len(tmp_layer_numbers)):
+      self.params["W%s"%(i)] = np.random.normal(0,weight_scale,(tmp_layer_numbers[i-1],tmp_layer_numbers[i]))
+      self.params["b%s"%(i)] = np.zeros(tmp_layer_numbers[i])
+      if self.use_batchnorm and i<len(tmp_layer_numbers)-1:
+        self.params["gamma%s"%(i)] = np.ones(tmp_layer_numbers[i])
+        self.params["beta%s"%(i)] = np.zeros(tmp_layer_numbers[i])
     pass
     ############################################################################
     #                             END OF YOUR CODE                             #
@@ -200,7 +224,7 @@ class FullyConnectedNet(object):
 
     # Set train/test mode for batchnorm params and dropout param since they
     # behave differently during training and testing.
-    if self.dropout_param is not None:
+    if self.dropout_param is not None: #actually self.dropout_param is always not None, because it will be set as {} in the initialization if drop_out is not used
       self.dropout_param['mode'] = mode   
     if self.use_batchnorm:
       for bn_param in self.bn_params:
@@ -219,6 +243,7 @@ class FullyConnectedNet(object):
     # self.bn_params[1] to the forward pass for the second batch normalization #
     # layer, etc.                                                              #
     ############################################################################
+
     pass
     ############################################################################
     #                             END OF YOUR CODE                             #

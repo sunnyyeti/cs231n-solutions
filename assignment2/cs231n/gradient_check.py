@@ -50,6 +50,9 @@ def eval_numerical_gradient_array(f, x, df, h=1e-5):
     x[ix] = oldval
     
     grad[ix] = np.sum((pos - neg) * df) / (2 * h)
+    #here is the application of the chain rule. (pos-neg)/(2*h) is the gadient of every element in the target array
+    #df is the gradient of final loss on each element in the target array
+    #so np.sum((pos - neg) * df) / (2 * h) is the gradient of final loss on the element in the x.
     it.iternext()
   return grad
 
