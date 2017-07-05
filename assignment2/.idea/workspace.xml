@@ -39,8 +39,8 @@
       <file leaf-file-name="layers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cs231n/layers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="335" column="41" lean-forward="false" selection-start-line="335" selection-start-column="41" selection-end-line="335" selection-end-column="41" />
+            <state relative-caret-position="342">
+              <caret line="214" column="22" lean-forward="false" selection-start-line="214" selection-start-column="4" selection-end-line="214" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -97,7 +97,7 @@
       <file leaf-file-name="optim.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cs231n/optim.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
+            <state relative-caret-position="2348">
               <caret line="136" column="2" lean-forward="true" selection-start-line="136" selection-start-column="2" selection-end-line="136" selection-end-column="2" />
               <folding />
             </state>
@@ -341,7 +341,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1054" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1054" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973932" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -479,14 +479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cs231n/optim.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="136" column="2" lean-forward="true" selection-start-line="136" selection-start-column="2" selection-end-line="136" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cs231n/layer_utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -507,10 +499,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cs231n/optim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2348">
+          <caret line="136" column="2" lean-forward="true" selection-start-line="136" selection-start-column="2" selection-end-line="136" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cs231n/layers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="335" column="41" lean-forward="false" selection-start-line="335" selection-start-column="41" selection-end-line="335" selection-end-column="41" />
+        <state relative-caret-position="342">
+          <caret line="214" column="22" lean-forward="false" selection-start-line="214" selection-start-column="4" selection-end-line="214" selection-end-column="22" />
           <folding />
         </state>
       </provider>

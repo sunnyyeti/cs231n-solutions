@@ -178,6 +178,13 @@ def batchnorm_forward(x, gamma, beta, bn_param):
     # the momentum variable to update the running mean and running variance,    #
     # storing your result in the running_mean and running_var variables.        #
     #############################################################################
+    cur_mean = x.mean(axis=0)
+    cur_var = x.var(axis=0)
+    tmp_out = (x-cur_mean)/(np.sqrt(cur_var)+eps)
+    out = tmp_out*gamma + beta
+    running_mean = momentum*running_mean + (1-momentum)*cur_mean
+    running_var = momentum*running_var + (1-momentum)*cur_var
+    cache = (gamma, cur_var, cur_mean, eps, tmp_out, x)
     pass
     #############################################################################
     #                             END OF YOUR CODE                              #
@@ -189,6 +196,8 @@ def batchnorm_forward(x, gamma, beta, bn_param):
     # and shift the normalized data using gamma and beta. Store the result in   #
     # the out variable.                                                         #
     #############################################################################
+    out = (x - running_mean)/(np.sqrt(running_var)+ eps)*gamma + beta
+    #cache = None
     pass
     #############################################################################
     #                             END OF YOUR CODE                              #
@@ -225,6 +234,29 @@ def batchnorm_backward(dout, cache):
   # TODO: Implement the backward pass for batch normalization. Store the      #
   # results in the dx, dgamma, and dbeta variables.                           #
   #############################################################################
+  N = dout.shape[0]
+  (gamma, sample_var, sample_mean, eps, nor_sample, x) = cache
+  dgamma = np.sum(dout*nor_sample,axis=0)
+  dbeta = np.sum(dout,axis=0)
+  dnor_sample = dout * gamma
+  d_center_mean = dnor_sample / (np.sqrt(sample_var)+eps)
+  d_sample_mean = -np.sum(d_center_mean,axis=0)
+  d_x_from_mean = d_sample_mean/N
+  d_x_from_orig = d_center_mean
+  d_sample_std_inverse = np.sum(dnor_sample * (x-sample_mean),axis=0)
+  d_sample_std = -1/((np.sqrt(sample_var)+eps)**2)*d_sample_std_inverse
+  d_sample_var = 0.5/np.sqrt(sample_var)*d_sample_std
+  d_center_mean2 = 2*d_sample_var/N*(x-sample_mean)
+  d_sample_mean2 = -np.sum(d_center_mean2,axis=0)
+  d_x_from_mean2 = d_sample_mean2/N
+  d_x_from_orig2 = d_center_mean2
+  dx = d_x_from_orig + d_x_from_orig2 + d_x_from_mean + d_x_from_mean2
+
+
+
+
+
+
   pass
   #############################################################################
   #                             END OF YOUR CODE                              #
