@@ -251,13 +251,7 @@ def batchnorm_backward(dout, cache):
   d_x_from_mean2 = d_sample_mean2/N
   d_x_from_orig2 = d_center_mean2
   dx = d_x_from_orig + d_x_from_orig2 + d_x_from_mean + d_x_from_mean2
-
-
-
-
-
-
-  pass
+  #pass
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
@@ -281,13 +275,22 @@ def batchnorm_backward_alt(dout, cache):
   dx, dgamma, dbeta = None, None, None
   #############################################################################
   # TODO: Implement the backward pass for batch normalization. Store the      #
-  # results in the dx, dgamma, and dbeta variables.                           #
+  # results in the dx, dgamma, and dbeta variables.                           #///
   #                                                                           #
-  # After computing the gradient with respect to the centered inputs, you     #
+  # After computing the gradient with respect to the centered inputs, you     #sample_std_epssample_std_eps
   # should be able to compute gradients with respect to the inputs in a       #
   # single statement; our implementation fits on a single 80-character line.  #
   #############################################################################
-  pass
+  #N = dout.shape[0]
+  (gamma, sample_var, sample_mean, eps, nor_sample, x) = cache
+  dgamma = np.sum(dout*nor_sample,axis=0)
+  dbeta = np.sum(dout,axis=0)
+  #in order to calculate the derative of xk, then we need  to consider the derative when index is k and when index is not k
+  dnor_sample = dout * gamma
+  sample_std = np.sqrt(sample_var)
+  sample_std_eps = sample_std + eps
+  center_x = x-sample_mean
+  dx = (dnor_sample-np.mean(dnor_sample,axis=0))/(sample_std_eps)-(1/(sample_std*sample_std_eps**2))*(center_x)*np.mean(center_x*dnor_sample,axis=0)
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################

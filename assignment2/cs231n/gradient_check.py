@@ -6,7 +6,8 @@ def eval_numerical_gradient(f, x, verbose=True, h=0.00001):
   a naive implementation of numerical gradient of f at x 
   - f should be a function that takes a single argument
   - x is the point (numpy array) to evaluate the gradient at
-  """ 
+  """
+  #the input is an array and the output is a singular value
 
   fx = f(x) # evaluate function value at original point
   grad = np.zeros_like(x)
@@ -36,6 +37,9 @@ def eval_numerical_gradient_array(f, x, df, h=1e-5):
   """
   Evaluate a numeric gradient for a function that accepts a numpy
   array and returns a numpy array.
+  f is the function, takes an array as input and outputs an array
+  x is the input array
+  df is the gradient of the final loss on the output array, so df is an array
   """
   grad = np.zeros_like(x)
   it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
@@ -50,6 +54,8 @@ def eval_numerical_gradient_array(f, x, df, h=1e-5):
     x[ix] = oldval
     
     grad[ix] = np.sum((pos - neg) * df) / (2 * h)
+    # assume y = x.dot(w)+b, then (pos-neg)/(2*h) is the gradient of output at a fixed position in input array x, the value is an array
+    # np.sum((pos-neg)*df/(2*h))is the gradient of the final loss on a fixed position in input array x
     #here is the application of the chain rule. (pos-neg)/(2*h) is the gadient of every element in the target array
     #df is the gradient of final loss on each element in the target array
     #so np.sum((pos - neg) * df) / (2 * h) is the gradient of final loss on the element in the x.

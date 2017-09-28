@@ -243,7 +243,26 @@ class FullyConnectedNet(object):
     # self.bn_params[1] to the forward pass for the second batch normalization #
     # layer, etc.                                                              #
     ############################################################################
-
+    caches_list = []
+    tmp_out = X
+    for layer in xrange(self.num_layers):
+      W = self.params['W'+str(layer+1)]
+      b = self.params['b'+str(layer+1)]
+      tmp_out, cache = affine_forward(tmp_out,W,b)
+      caches_list.append(cache)
+      if self.use_batchnorm and layer<self.num_layers-1: # batch normalization
+        gamma = self.params["gamma"+str(layer+1)]
+        beta = self.params["beta"+str(layer+1)]
+        bn_param = self.bn_params[layer]
+        tmp_out,cache = batchnorm_forward(tmp_out,gamma,beta,bn_param)
+        caches_list.append(cache)
+      if layer < self.num_layers - 1: #relu activation
+        tmp_out,cache = relu_forward(tmp_out)
+        caches_list.append(cache)
+      if self.use_dropout and layer<self.num_layers-1: #dropout
+        tmp_out,cache = dropout_forward(tmp_out,self.dropout_param)
+        caches_list.append(cache)
+    scores = tmp_out
     pass
     ############################################################################
     #                             END OF YOUR CODE                             #
@@ -267,6 +286,21 @@ class FullyConnectedNet(object):
     # automated tests, make sure that your L2 regularization includes a factor #
     # of 0.5 to simplify the expression for the gradient.                      #
     ############################################################################
+    loss,dtmp_out = softmax_loss(scores,y)
+    for i in xrange(self.num_layers): #calculates the regularization cost for each layer
+      loss += (np.sum(self.params['W'+str(i+1)] ** 2)) * 0.5 * self.reg
+    for layer in xrange(self.num_layers-1,-1,-1):
+      if layer < self.num_layers-1:
+        if self.use_dropout:
+          dtmp_out = dropout_backward(dtmp_out,caches_list.pop())
+        dtmp_out = relu_backward(dtmp_out,caches_list.pop())
+        if self.use_batchnorm:
+          dtmp_out, dgamma, dbeta = batchnorm_backward(dtmp_out,caches_list.pop())
+          grads["gamma"+str(layer+1)] = dgamma
+          grads['beta'+str(layer+1)] = dbeta
+      dtmp_out, dW, db = affine_backward(dtmp_out,caches_list.pop())
+      grads['W'+str(layer+1)] = dW + self.params['W'+str(layer+1)]*self.reg
+      grads['b'+str(layer+1)] = db
     pass
     ############################################################################
     #                             END OF YOUR CODE                             #

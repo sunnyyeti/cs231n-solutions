@@ -133,7 +133,7 @@ def adam(x, dx, config=None):
   config.setdefault('epsilon', 1e-8)
   config.setdefault('m', np.zeros_like(x))
   config.setdefault('v', np.zeros_like(x))
-  config.setdefault('t', 1)
+  config.setdefault('t', 0)
   
   #next_x = None
   #############################################################################
@@ -141,14 +141,15 @@ def adam(x, dx, config=None):
   # the next_x variable. Don't forget to update the m, v, and t variables     #
   # stored in config.                                                         #
   #############################################################################
+  config['t'] = config['t'] + 1
   m = config['beta1']*config['m']+(1-config['beta1'])*dx
   mt = m/(1-config['beta1']**config['t'])
-  v = config['beta2']*config['v']+(1-config['beta2'])*dx**2
+  v = config['beta2']*config['v']+(1-config['beta2'])*(dx**2)
   vt = v/(1-config['beta2']**config['t'])
   next_x = x - config['learning_rate']*mt/(np.sqrt(vt)+config['epsilon'])
   config['m'] = m
   config['v'] = v
-  config['t'] = config['t']+1
+
   pass
   #############################################################################
   #                             END OF YOUR CODE                              #
