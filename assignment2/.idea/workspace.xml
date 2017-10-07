@@ -19,8 +19,8 @@
       <file leaf-file-name="layers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cs231n/layers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="655">
-              <caret line="422" column="97" lean-forward="true" selection-start-line="422" selection-start-column="97" selection-end-line="422" selection-end-column="97" />
+            <state relative-caret-position="6091">
+              <caret line="473" column="31" lean-forward="false" selection-start-line="473" selection-start-column="31" selection-end-line="473" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -100,7 +100,7 @@
         <entry file="file://$PROJECT_DIR$/cs231n/optim.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="388">
-              <caret line="132" column="21" lean-forward="true" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
+              <caret line="132" column="21" lean-forward="false" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -594,7 +594,7 @@
     <entry file="file://$PROJECT_DIR$/cs231n/optim.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="388">
-          <caret line="132" column="21" lean-forward="true" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
+          <caret line="132" column="21" lean-forward="false" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -641,8 +641,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cs231n/layers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="655">
-          <caret line="422" column="97" lean-forward="true" selection-start-line="422" selection-start-column="97" selection-end-line="422" selection-end-column="97" />
+        <state relative-caret-position="6091">
+          <caret line="473" column="31" lean-forward="false" selection-start-line="473" selection-start-column="31" selection-end-line="473" selection-end-column="31" />
           <folding />
         </state>
       </provider>
