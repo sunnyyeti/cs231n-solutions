@@ -15,4 +15,9 @@
 * Q3: Dropout
 * Q4: ConvNet on CIFAR-10
 
- to be continued...
+### Assignment 3
+* Q1: Image Captioning with Vanilla RNNS
+* Q2: Image Captioning with LSTMs
+* Q3: Image Gradients: Saliency maps and Fooling Images
+* Q4: Image Generation: Classes, Inversion, DeepDream
+* Q5: Do something extra
