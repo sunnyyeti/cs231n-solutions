@@ -2,7 +2,6 @@ import urllib2, os, tempfile
 
 import numpy as np
 from scipy.misc import imread
-
 from cs231n.fast_layers import conv_forward_fast
 
 
@@ -85,12 +84,17 @@ def image_from_url(url):
   We write the image to a temporary file then read it back. Kinda gross.
   """
   try:
+    # f = urllib2.urlopen(url)
+    # _, fname = tempfile.mkstemp()
+    # with open(fname, 'wb') as ff:
+      # ff.write(f.read())
+    # img = imread(fname)
+    # os.remove(fname)
+    # return img
+    import cStringIO
     f = urllib2.urlopen(url)
-    _, fname = tempfile.mkstemp()
-    with open(fname, 'wb') as ff:
-      ff.write(f.read())
-    img = imread(fname)
-    os.remove(fname)
+    file = cStringIO.StringIO(f.read())
+    img = imread(file)
     return img
   except urllib2.URLError as e:
     print 'URL Error: ', e.reason, url

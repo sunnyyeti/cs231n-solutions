@@ -1,3 +1,4 @@
 build/*
+datasets/coco_captioning/*
 im2col_cython.c
 im2col_cython.so
