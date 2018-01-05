@@ -140,24 +140,27 @@ class CaptioningRNN(object):
     x,cache_word_embed = word_embedding_forward(captions_in,W_embed)
     if self.cell_type == 'rnn':
         h,cache_rnn = rnn_forward(x, h0, Wx, Wh, b)
-        out_scores, cache_tem_aff = temporal_affine_forward(h, W_vocab, b_vocab)
-        loss,dout_scores = temporal_softmax_loss(out_scores, captions_out, mask, verbose=False)
-        dh, dW_vocab, db_vocab = temporal_affine_backward(dout_scores, cache_tem_aff)
-        dx, dh0, dWx, dWh, db = rnn_backward(dh, cache_rnn)
-        dW_embed = word_embedding_backward(dx, cache_word_embed)
-        dW_proj = features.T.dot(dh0)
-        db_proj = np.sum(dh0,axis=0)
-        grads["W_proj"] = dW_proj
-        grads['b_proj'] = db_proj
-        grads["W_embed"] = dW_embed
-        grads["Wx"] = dWx
-        grads["Wh"] = dWh
-        grads["b"] = db
-        grads["W_vocab"] = dW_vocab
-        grads["b_vocab"] = db_vocab
-        
     else:
-        pass
+        h,cache_lstm = lstm_forward(x, h0, Wx, Wh, b)
+    out_scores, cache_tem_aff = temporal_affine_forward(h, W_vocab, b_vocab)
+    loss,dout_scores = temporal_softmax_loss(out_scores, captions_out, mask, verbose=False)
+    dh, dW_vocab, db_vocab = temporal_affine_backward(dout_scores, cache_tem_aff)
+    if self.cell_type == 'rnn':
+        dx, dh0, dWx, dWh, db = rnn_backward(dh, cache_rnn)
+    else:
+        dx, dh0, dWx, dWh, db = lstm_backward(dh, cache_lstm)
+    dW_embed = word_embedding_backward(dx, cache_word_embed)
+    dW_proj = features.T.dot(dh0)
+    db_proj = np.sum(dh0,axis=0)
+    grads["W_proj"] = dW_proj
+    grads['b_proj'] = db_proj
+    grads["W_embed"] = dW_embed
+    grads["Wx"] = dWx
+    grads["Wh"] = dWh
+    grads["b"] = db
+    grads["W_vocab"] = dW_vocab
+    grads["b_vocab"] = db_vocab
+
     
     
     ############################################################################
@@ -223,17 +226,16 @@ class CaptioningRNN(object):
     ###########################################################################
     pass
     h0 = features.dot(W_proj)+b_proj
-    #print N
     word_indxs = np.ones(N).astype(np.int32)*self._start
-    #print word_indxs
     x = W_embed[word_indxs]
-    #print x.shape
+    prev_c = np.zeros_like(h0)
     for t in xrange(max_length):
-        h0,_ = rnn_step_forward(x, h0, Wx, Wh, b)
+        if self.cell_type == 'rnn':
+            h0,_ = rnn_step_forward(x, h0, Wx, Wh, b)
+        else:
+            h0, prev_c, _ = lstm_step_forward(x, h0, prev_c, Wx, Wh, b)
         out_scores = h0.dot(W_vocab)+b_vocab
-       
         out_index = np.argmax(out_scores,axis=1).astype(np.int32)
-
         captions[:,t] = out_index
         x = W_embed[out_index]
     
