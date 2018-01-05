@@ -222,6 +222,21 @@ class CaptioningRNN(object):
     # a loop.                                                                 #
     ###########################################################################
     pass
+    h0 = features.dot(W_proj)+b_proj
+    #print N
+    word_indxs = np.ones(N).astype(np.int32)*self._start
+    #print word_indxs
+    x = W_embed[word_indxs]
+    #print x.shape
+    for t in xrange(max_length):
+        h0,_ = rnn_step_forward(x, h0, Wx, Wh, b)
+        out_scores = h0.dot(W_vocab)+b_vocab
+       
+        out_index = np.argmax(out_scores,axis=1).astype(np.int32)
+
+        captions[:,t] = out_index
+        x = W_embed[out_index]
+    
     ############################################################################
     #                             END OF YOUR CODE                             #
     ############################################################################
